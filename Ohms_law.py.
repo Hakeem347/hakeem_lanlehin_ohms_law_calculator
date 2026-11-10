@@ -1,0 +1,102 @@
+
+# OHM'S LAW AND POWER CALCULATOR
+# Author: Hakeem
+# Department: Mechatronics Engineering
+
+# This list stores previous calculations
+history = []
+
+
+# Function to collect numerical input
+def get_value(message):
+    while True:
+        try:
+            value = float(input(message))
+
+            if value < 0:
+                print("Please enter a non-negative value.")
+            else:
+                return value
+
+        except ValueError:
+            print("Invalid input! Please enter a number.")
+
+
+# Function to perform calculations
+def calculate():
+    print("\n--- OHM'S LAW CALCULATOR ---")
+    print("1. Calculate Voltage")
+    print("2. Calculate Current")
+    print("3. Calculate Resistance")
+    print("4. Calculate Power")
+    print("5. View Calculation History")
+    print("6. Exit")
+
+    choice = input("Choose an option (1-6): ")
+
+    if choice == "1":
+        current = get_value("Enter current (A): ")
+        resistance = get_value("Enter resistance (Ohms): ")
+
+        voltage = current * resistance
+        result = f"Voltage = {voltage:.2f} V"
+
+    elif choice == "2":
+        voltage = get_value("Enter voltage (V): ")
+        resistance = get_value("Enter resistance (Ohms): ")
+
+        if resistance == 0:
+            print("Error! Resistance cannot be zero.")
+            return
+
+        current = voltage / resistance
+        result = f"Current = {current:.2f} A"
+
+    elif choice == "3":
+        voltage = get_value("Enter voltage (V): ")
+        current = get_value("Enter current (A): ")
+
+        if current == 0:
+            print("Error! Current cannot be zero.")
+            return
+
+        resistance = voltage / current
+        result = f"Resistance = {resistance:.2f} Ohms"
+
+    elif choice == "4":
+        voltage = get_value("Enter voltage (V): ")
+        current = get_value("Enter current (A): ")
+
+        power = voltage * current
+        result = f"Power = {power:.2f} W"
+
+    elif choice == "5":
+        print("\n--- CALCULATION HISTORY ---")
+
+        if len(history) == 0:
+            print("No calculations have been made yet.")
+        else:
+            for item in history:
+                print(item)
+
+        return
+
+    elif choice == "6":
+        print("Thank you for using the calculator!")
+        return "exit"
+
+    else:
+        print("Invalid choice! Select from 1 to 6.")
+        return
+
+    # Display and save the result
+    print("\nResult:", result)
+    history.append(result)
+
+
+# Main loop keeps the calculator running
+while True:
+    status = calculate()
+
+    if status == "exit":
+        break
